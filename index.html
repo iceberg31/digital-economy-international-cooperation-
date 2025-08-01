@@ -86,7 +86,6 @@
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
-            text-align: center;
             font-size: 16px;
             font-weight: 500;
         }
@@ -164,39 +163,45 @@
             font-weight: 600;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 14px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
+        .expandable {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .expandable::after {
+            content: '(可點擊展開)';
+            float: right;
+            font-size: 12px;
+            font-weight: normal;
+            color: #999;
+            transition: opacity 0.3s ease;
+        }
+
+        .expandable.expanded::after {
+            content: '(可點擊收起)';
+        }
+
+        .sub-items {
+            max-height: 0;
             overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
         }
 
-        th {
-            background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
-            color: white;
-            padding: 15px 12px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 13px;
+        .sub-items.show {
+            max-height: 200px;
+            margin-top: 10px;
         }
 
-        td {
-            padding: 15px 12px;
-            border: 1px solid #e0e0e0;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        tr:nth-child(even) {
+        .sub-item {
             background: #f8f9fa;
-        }
-
-        tr:hover {
-            background: #e3f2fd;
-            transition: background 0.2s ease;
+            margin: 8px 0 8px 20px;
+            padding: 12px 18px;
+            border-left: 3px solid #42a5f5;
+            border-radius: 0 6px 6px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-size: 15px;
+            color: #555;
         }
 
         .features {
@@ -267,6 +272,168 @@
             line-height: 1.5;
         }
 
+        .work-item {
+            background: white;
+            border: 2px solid #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .work-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-color: #1976d2;
+        }
+
+        .work-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 8px;
+        }
+
+        .work-details {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .assigned-person {
+            display: inline-block;
+            background: #f5f5f5;
+            border: 1px dashed #999;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .assigned-person.assigned {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+            border: 1px solid #4caf50;
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .assigned-person:not(.assigned):hover {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #1565c0;
+        }
+
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: white;
+        }
+
+        .close {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .person-list {
+            margin-bottom: 20px;
+        }
+
+        .person-option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .person-option:hover {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #1565c0;
+            transform: translateX(5px);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel, .btn-clear {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-clear {
+            background: #ff5722;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #e64a19;
+        }
+
         .slide-number {
             text-align: right;
             color: #666;
@@ -302,11 +469,8 @@
             box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
         }
 
-        .nav-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .nav-btn.active {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
         }
 
         @media (max-width: 768px) {
@@ -325,14 +489,6 @@
             .features {
                 grid-template-columns: 1fr;
             }
-            
-            table {
-                font-size: 12px;
-            }
-            
-            th, td {
-                padding: 10px 8px;
-            }
         }
     </style>
 </head>
@@ -347,19 +503,37 @@
             
             <div class="slide-content">
                 <h2>計畫目標與重點</h2>
-                <div class="highlight-box">
-                    <strong>核心目標</strong>：強化我國數位產業在雙邊及多邊層面的合作量能，拓展與各利害關係群體的連結
+                <div class="highlight-box" style="text-align: left;">
+                    <div style="text-align: center; margin-bottom: 15px;"><strong>核心目標</strong>：</div>
+                    <strong>1.</strong> 面對全球數位經濟競爭加劇，本計畫著眼於數位產業、智慧政府之平台經濟、智慧城鄉與數位服務等領域，旨在<span style="color: #d32f2f; font-weight: 700;">拓展我國數位經濟產業之國際合作管道，以建立一套兼具韌性與競爭力之數位經濟體系</span>。
+                    <br><br>
+                    <strong>2.</strong> 透過與美國、英國、新加坡、韓國及澳洲等<span style="color: #d32f2f;">數位領先國家之深度對接</span>，系統引介其在政策設計、產業創新與基礎建設方面的成熟經驗與最佳實踐；透過研析或爭取參與數位經濟多邊網絡，旨在<span style="color: #d32f2f;">提升我國於區域及多邊治理架構之可見性</span>。
                 </div>
 
                 <ul class="objectives">
-                    <li><strong>盤點數位經濟國際合作機制與關鍵議題</strong></li>
-                    <li><strong>深化與美、英、星、韓、澳等重點國家的雙邊互動</strong></li>
-                    <li><strong>盤點及活絡國際與區域多邊平台的協作網絡</strong></li>
+                    <li class="expandable" onclick="toggleExpand(this)">
+                        <strong>分項一：盤點數位經濟國際合作機制與關鍵議題</strong>
+                        <div class="sub-items">
+                            <div class="sub-item">1-1 全球數位經濟國際合作重點議題與趨勢研析</div>
+                            <div class="sub-item">1-2 全球數位經濟產業評比研析與因應</div>
+                        </div>
+                    </li>
+                    <li class="expandable" onclick="toggleExpand(this)">
+                        <strong>分項二：深化與美、英、星、韓、澳等重點國家的雙邊互動</strong>
+                        <div class="sub-items">
+                            <div class="sub-item">2-1 重點國家數位經濟議題之交流合作研析</div>
+                            <div class="sub-item">2-2 建立我國與重點國家之產官學研網絡</div>
+                        </div>
+                    </li>
+                    <li class="expandable" onclick="toggleExpand(this)">
+                        <strong>分項三：盤點及活絡國際與區域多邊平台的協作網絡</strong>
+                        <div class="sub-items">
+                            <div class="sub-item">3-1 研析我國參與區域數位經濟合作機制之可行性及管道</div>
+                            <div class="sub-item">3-2 建立我國潛在可參與之區域數位經濟合作機制相關網絡</div>
+                        </div>
+                    </li>
+                    <li><strong>分項四：幕僚服務與專案管理</strong></li>
                 </ul>
-
-                <div class="highlight-box">
-                    <strong>策略重點</strong>：建立「多邊架構引導、雙邊合作深化」的推動路徑
-                </div>
 
                 <h2>整體計畫基本資訊</h2>
                 <div class="info-grid">
@@ -367,22 +541,29 @@
                         <h4>基本資訊</h4>
                         <p><strong>計畫名稱</strong>：臺灣數位經濟產業國際合作關鍵策略先期研究計畫<br>
                         <strong>執行期間</strong>：114年8月1日至115年7月31日<br>
-                        <strong>執行機構</strong>：台灣經濟研究院（三所、八所合作）<br>
-                        <strong>人力需求</strong>：96人月，人事費580萬元</p>
+                        <strong>執行機構</strong>：台灣經濟研究院（三所、八所合作）</p>
                     </div>
                     <div class="info-card">
                         <h4>計畫經費分配</h4>
                         <div class="budget-item">
-                            <span>總預算規模</span>
-                            <span><strong>1,050萬元</strong></span>
+                            <span>分項一、數位經濟國際合作機制及領域探討</span>
+                            <span>105萬元 (10%)</span>
                         </div>
                         <div class="budget-item">
-                            <span>分項一到三</span>
-                            <span>945萬元</span>
+                            <span>分項二、重點國家雙邊合作交流</span>
+                            <span>630萬元 (60%)</span>
                         </div>
                         <div class="budget-item">
-                            <span>幕僚支援費用</span>
-                            <span>105萬元</span>
+                            <span>分項三、國際及區域之多邊合作交流</span>
+                            <span>210萬元 (20%)</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>分項四、幕僚服務與專案管理</span>
+                            <span>103萬元 (10%)</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>總經費</span>
+                            <span><strong>1,048萬元</strong></span>
                         </div>
                     </div>
                 </div>
@@ -390,27 +571,38 @@
                 <h2>三所承接項目概覽</h2>
                 <div class="info-grid">
                     <div class="info-card">
-                        <h4>三所總承接（195萬元）</h4>
+                        <h4>三所具體承接項目</h4>
                         <div class="budget-item">
-                            <span>分項一</span>
-                            <span>105萬元</span>
+                            <span>分項一、數位經濟國際合作機制及領域探討</span>
+                            <span><strong>105萬元</strong></span>
+                        </div>
+                        <div style="margin-left: 20px; font-size: 14px; color: #666;">
+                            <div style="padding: 5px 0;">• 1.1 全球數位經濟國際合作重點議題與趨勢研析</div>
+                            <div style="padding: 5px 0;">• 1.2 全球數位經濟產業評比研析與因應</div>
                         </div>
                         <div class="budget-item">
-                            <span>德國荷蘭研究</span>
-                            <span>70萬元</span>
+                            <span>分項二、重點國家雙邊合作交流</span>
+                            <span><strong>70萬元</strong></span>
+                        </div>
+                        <div style="margin-left: 20px; font-size: 14px; color: #666;">
+                            <div style="padding: 5px 0;">• 2.1 重點國家數位經濟議題之交流合作研析 (德國與荷蘭研究)</div>
                         </div>
                         <div class="budget-item">
-                            <span>幕僚費分擔</span>
-                            <span>約20萬元</span>
+                            <span>分項四：幕僚費分擔（交辦處理）</span>
+                            <span><strong>20萬元</strong></span>
                         </div>
                         <div class="budget-item">
-                            <span>佔分項一到三比例</span>
-                            <span><strong>18.5%</strong></span>
+                            <span>三所總承接</span>
+                            <span><strong>195萬元</strong></span>
+                        </div>
+                        <div class="budget-item">
+                            <span>佔總經費比例</span>
+                            <span><strong>18.6%</strong></span>
                         </div>
                     </div>
                 </div>
 
-                <div class="slide-number">第 1 頁 / 共 2 頁</div>
+                <div class="slide-number">第 1 頁 / 共 3 頁</div>
             </div>
         </div>
 
@@ -418,18 +610,18 @@
         <div class="slide" id="slide2" style="display: none;">
             <div class="slide-header">
                 <div class="slide-title">執行策略與時程安排</div>
-                <div class="slide-subtitle">三所執行特色與預期效益</div>
+                <div class="slide-subtitle">三所執行內容詳細說明</div>
             </div>
             
             <div class="slide-content">
-                <h2>分項一：數位經濟國際合作機制及領域探討（105萬元）</h2>
+                <h2>分項一：數位經濟國際合作機制及領域探討</h2>
                 
-                <h3>工項1.1：國際數位經濟合作趨勢與重點議題研析（52.5萬元，8月-1月）</h3>
+                <h3>工項1.1：全球數位經濟國際合作重點議題與趨勢研析（114年8月～115年1月）</h3>
                 <div class="info-card">
-                    <h4>執行同仁：研究組A</h4>
+                    <h4>執行同仁：研究員A、研究員B</h4>
                     <p><strong>核心工作：</strong></p>
                     <ul>
-                        <li>多邊與國際組織數位經濟合作趨勢與議題觀測
+                        <li><strong>多邊與國際組織數位經濟合作趨勢與議題觀測</strong>
                             <ul>
                                 <li>追蹤WTO電子商務聯合聲明倡議(JSI)後續發展</li>
                                 <li>觀測APEC網際網路與數位經濟路線圖(AIDER)進展</li>
@@ -438,15 +630,16 @@
                             </ul>
                         </li>
                         
-                        <li>雙邊數位經濟相關協定合作議題觀測
+                        <li><strong>雙邊數位經濟相關協定合作議題觀測</strong>
                             <ul>
                                 <li>檢視美日、星澳、英星、韓星等主要雙邊協定實質進展</li>
                                 <li>分析雙邊資料跨境流通、資安韌性、AI治理合作進度</li>
                                 <li>比較不同雙邊合作模式的重點與成效差異</li>
+                                <li>分析雙邊協定國家中，國內數位經濟政策有關國際合作部分內涵</li>
                             </ul>
                         </li>
                         
-                        <li>關鍵議題深度研析
+                        <li><strong>關鍵議題深度研析</strong>
                             <ul>
                                 <li>選擇一項關鍵議題進行深度分析（如AI國際合作模式或跨境資料流通）</li>
                                 <li>建立特定議題的深度觀測機制</li>
@@ -455,15 +648,34 @@
                         </li>
                     </ul>
                     
-                    <p><strong>主要成果：</strong>國際數位經濟合作趨勢與重點議題研析報告1份</p>
+                    <p><strong>主要成果：</strong>報告一式、建構整體觀測機制、關鍵議題深度研析機制</p>
+                    
+                    <div class="highlight-box">
+                        <strong>研究方法與學習要點：</strong><br>
+                        <strong>研究方法：</strong>次級資料/文獻搜集與分析、資料分析法、國家政策研究<br>
+                        <strong>資料來源初步評估：</strong>充足<br>
+                        <strong>學習重點：</strong><br>
+                        • 掌握國際數位經濟多邊合作機制的最新發展趨勢<br>
+                        • 培養對全球數位治理架構的深度理解與分析能力
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>主要查核點：</strong><br>
+                        • 全球數位經濟國際合作重點議題與趨勢研析報告規劃書(114年9月15日)<br>
+                        • 全球數位經濟國際合作重點議題與趨勢研析報告(115年1月31日)<br>
+                        研究結果與進度納入：<br>
+                        • 計畫執行進度報告(114年12月10日)<br>
+                        • 期中執行成果報告(115年1月9日)<br>
+                        • 期末執行成果報告(115年6月30日)
+                    </div>
                 </div>
 
-                <h3>工項1.2：我國數位經濟國際合作定位與策略分析（52.5萬元，12月-5月）</h3>
+                <h3>工項1.2：全球數位經濟產業評比研析與因應（114年12月～115年5月）</h3>
                 <div class="info-card">
-                    <h4>執行同仁：研究組B</h4>
+                    <h4>執行同仁：研究員C、研究員D</h4>
                     <p><strong>核心工作：</strong></p>
                     <ul>
-                        <li>數位經濟競爭力國際指標比較分析
+                        <li><strong>數位經濟競爭力國際指標比較分析</strong>
                             <ul>
                                 <li>運用IMD世界數位競爭力排名檢視我國在「知識」、「技術」、「未來整備度」表現</li>
                                 <li>分析Stanford AI Index、Tortoise Global AI Index等特定領域評比</li>
@@ -472,7 +684,7 @@
                             </ul>
                         </li>
                         
-                        <li>國內數位產業國際合作優劣勢研析
+                        <li><strong>國內數位產業國際合作優劣勢研析</strong>
                             <ul>
                                 <li>訪談資服業領導企業高階主管、產業公協會代表、學研機構專家</li>
                                 <li>分析2-3個具代表性的企業案例</li>
@@ -481,7 +693,7 @@
                             </ul>
                         </li>
                         
-                        <li>國際合作機會發掘與策略支援
+                        <li><strong>國際合作機會發掘與策略支援</strong>
                             <ul>
                                 <li>分析我國數位產業可輸出的服務、經驗與解決方案</li>
                                 <li>評估優勢領域在國際合作場域的適用性與競爭力</li>
@@ -491,20 +703,37 @@
                         </li>
                     </ul>
                     
-                    <p><strong>主要成果：</strong>我國數位經濟國際合作定位與策略分析報告1份</p>
+                    <p><strong>主要成果：</strong>報告一式、建構評比研析機制、個案研究架構</p>
+                    
+                    <div class="highlight-box">
+                        <strong>研究方法與學習要點：</strong><br>
+                        <strong>研究方法：</strong>次級資料/文獻搜集與分析、資料分析法、訪談法、企業個案研究<br>
+                        <strong>資料來源初步評估：</strong>中等<br>
+                        <strong>學習重點：</strong><br>
+                        • 建立國際競爭力評比指標的分析與應用能力<br>
+                        • 強化產業訪談與個案分析的實務研究技能
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>主要查核點：</strong><br>
+                        • 全球數位經濟產業評比研析與因應報告規劃書(115年1月31日)<br>
+                        • 全球數位經濟產業評比研析與因應報告(115年5月31日)<br>
+                        研究結果與進度納入：<br>
+                        • 計畫執行進度報告(114年12月10日)<br>
+                        • 期中執行成果報告(115年1月9日)<br>
+                        • 計畫執行進度報告(115年4月10日)<br>
+                        • 期末執行成果報告(115年6月30日)
+                    </div>
                 </div>
 
-                <h2>德國荷蘭研究詳細規劃（70萬元）</h2>
-                <div class="highlight-box">
-                    <strong>研究特色</strong>：有別於前述五國採實地拜會方式建立雙邊網絡，德國與荷蘭將透過盤點並研析兩國與推動數位經濟相關的政府部門、產業協會所發布之文獻或統計資料，探詢兩國發展數位經濟的推動做法、關鍵組織、核心優勢領域，與我國數位經濟產業合作的潛在機會。
-                </div>
+                <h2>德國荷蘭研究詳細規劃</h2>
                 
-                <h3>工項4.6：德國數位產業研析（35萬元，全年度）</h3>
+                <h3>工項2.6：德國數位產業研析（114年8月～115年7月）</h3>
                 <div class="info-card">
-                    <h4>執行同仁：研究組C</h4>
+                    <h4>執行同仁：研究員E</h4>
                     <p><strong>核心工作：</strong></p>
                     <ul>
-                        <li>政府機構政策文件分析
+                        <li><strong>政府機構政策文件分析</strong>
                             <ul>
                                 <li>德國聯邦數位化暨交通部(BMDV)數位策略白皮書研析</li>
                                 <li>德國聯邦資訊安全辦公室(BSI)AI指引與政策文件分析</li>
@@ -512,7 +741,7 @@
                             </ul>
                         </li>
                         
-                        <li>產業協會研究報告分析
+                        <li><strong>產業協會研究報告分析</strong>
                             <ul>
                                 <li>德國人工智慧協會(PLS)發布之研究報告</li>
                                 <li>德國資訊科技電信新媒體協會(Bitkom)產業分析</li>
@@ -520,7 +749,7 @@
                             </ul>
                         </li>
                         
-                        <li>重要展會活動盤點
+                        <li><strong>重要展會活動盤點</strong>
                             <ul>
                                 <li>德國漢諾威工業博覽會(Hannover Messe)數位生態系展覽專區評估</li>
                                 <li>其他年度重要數位經濟相關展會、論壇及研討會</li>
@@ -530,15 +759,34 @@
                     </ul>
                     
                     <p><strong>聚焦領域：</strong>工業4.0、資料治理及人工智慧倫理規範</p>
-                    <p><strong>主要成果：</strong>潛在拜會機構清單、參與展會清單及合作建議</p>
+                    <p><strong>主要成果：</strong>(模板由八所提供) 潛在拜會機構清單、參與展會清單及合作建議</p>
+                    
+                    <div class="highlight-box">
+                        <strong>研究方法與學習要點：</strong><br>
+                        <strong>研究方法：</strong>次級資料/文獻搜集與分析、國家政策研究<br>
+                        <strong>資料來源初步評估：</strong>充足<br>
+                        <strong>學習重點：</strong><br>
+                        • 深入了解德國工業4.0與數位轉型政策架構<br>
+                        • 掌握歐盟AI倫理規範與資料治理最佳實踐
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>主要查核點：</strong><br>
+                        • 重點國家數位經濟議題之交流合作研析報告(115年5月31日)<br>
+                        研究結果與進度納入：<br>
+                        • 計畫執行進度報告(114年12月10日)<br>
+                        • 期中執行成果報告(115年1月9日)<br>
+                        • 計畫執行進度報告(115年4月10日)<br>
+                        • 期末執行成果報告(115年6月30日)
+                    </div>
                 </div>
 
-                <h3>工項4.7：荷蘭數位產業研析（35萬元，全年度）</h3>
+                <h3>工項2.7：荷蘭數位產業研析（114年8月～115年7月）</h3>
                 <div class="info-card">
-                    <h4>執行同仁：研究組D</h4>
+                    <h4>執行同仁：研究員F</h4>
                     <p><strong>核心工作：</strong></p>
                     <ul>
-                        <li>政府機構政策文件分析
+                        <li><strong>政府機構政策文件分析</strong>
                             <ul>
                                 <li>荷蘭經濟事務暨氣候政策部(EZK)產業數位轉型路線圖研析</li>
                                 <li>荷蘭企業署(RVO)AI國家行動計畫與相關政策文件分析</li>
@@ -546,7 +794,7 @@
                             </ul>
                         </li>
                         
-                        <li>研究機構與產業聯盟報告分析
+                        <li><strong>研究機構與產業聯盟報告分析</strong>
                             <ul>
                                 <li>荷蘭應用科學研究組織(TNO)相關研究報告</li>
                                 <li>荷蘭人工智慧聯盟(AI Coalition)發布之研究分析</li>
@@ -554,7 +802,7 @@
                             </ul>
                         </li>
                         
-                        <li>重要展會活動盤點
+                        <li><strong>重要展會活動盤點</strong>
                             <ul>
                                 <li>荷蘭阿姆斯特丹科技週(Amsterdam Tech Week)評估</li>
                                 <li>其他年度重要數位經濟相關展會、論壇及研討會</li>
@@ -564,94 +812,211 @@
                     </ul>
                     
                     <p><strong>聚焦領域：</strong>開放資料政策、垂直領域數位應用(金融與農業)及AI治理</p>
-                    <p><strong>主要成果：</strong>潛在拜會機構清單、參與展會清單及合作建議</p>
-                </div>
-
-                <h2>執行時程規劃</h2>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4>分項1.1 & 1.2 分階段執行</h4>
-                        <p><strong>分項1.1（8月-1月）</strong>：專注於國際數位經濟合作趨勢分析，建立多邊-雙邊-重點議題三層分析架構<br>
-                        <strong>分項1.2（12月-5月）</strong>：進行我國數位經濟競爭力評比分析，完成定位與策略建議<br>
-                        <em>此安排可避免人力集中，提升執行效率並確保研究品質</em></p>
+                    <p><strong>主要成果：</strong>(模板由八所提供) 潛在拜會機構清單、參與展會清單及合作建議</p>
+                    
+                    <div class="highlight-box">
+                        <strong>研究方法與學習要點：</strong><br>
+                        <strong>研究方法：</strong>次級資料/文獻搜集與分析、國家政策研究<br>
+                        <strong>資料來源初步評估：</strong>充足<br>
+                        <strong>學習重點：</strong><br>
+                        • 學習荷蘭開放資料政策與數位政府治理經驗<br>
+                        • 探索金融科技與智慧農業等垂直領域數位應用模式
                     </div>
-                    <div class="info-card">
-                        <h4>德國荷蘭研究執行模式</h4>
-                        <p><strong>文獻分析模式</strong>：透過政府部門、產業協會發布之文獻或統計資料進行深度研析<br>
-                        <strong>既有網絡運用</strong>：運用TNO等研究法人建立的合作關係，蒐集關鍵資訊<br>
-                        <strong>展會活動盤點</strong>：評估重要數位經濟展會（如漢諾威工業博覽會、阿姆斯特丹科技週）參與效益<br>
-                        <em>為未來潛在合作國家建立完整基礎資料庫與雙邊交流策略基礎</em></p>
-                    </div>
-                </div>
-
-                <h2>與八所協作機制</h2>
-                <div class="features">
-                    <div class="feature-item">
-                        <div class="feature-number">1</div>
-                        <h4>獨立性</h4>
-                        <p>分項一工作相對獨立，不需等待分項二執行結果，可提前啟動研究工作</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-number">2</div>
-                        <h4>支援性</h4>
-                        <p>德國荷蘭研究成果可支援八所後續國家選擇，提供更多元的合作選項</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-number">3</div>
-                        <h4>協調性</h4>
-                        <p>定期工作會議（每次30分鐘）確保資訊同步，避免工作重複或遺漏</p>
+                    
+                    <div class="highlight-box">
+                        <strong>主要查核點：</strong><br>
+                        • 重點國家數位經濟議題之交流合作研析報告(115年5月31日)<br>
+                        研究結果與進度納入：<br>
+                        • 計畫執行進度報告(114年12月10日)<br>
+                        • 期中執行成果報告(115年1月9日)<br>
+                        • 計畫執行進度報告(115年4月10日)<br>
+                        • 期末執行成果報告(115年6月30日)
                     </div>
                 </div>
 
-                <h2>執行優勢與特色</h2>
-                <ul class="objectives">
-                    <li><strong>政策高度</strong>：聚焦macro層級全球趨勢分析，為政府政策規劃提供堅實基礎</li>
-                    <li><strong>產業深度</strong>：從議題類（資料跨境流通）到產業類（因應策略）完整涵蓋研究範疇</li>
-                    <li><strong>前瞻布局</strong>：德國荷蘭研究為未來合作國家建立基礎資料，擴展合作視野</li>
-                    <li><strong>彈性執行</strong>：時程安排具備彈性，人力配置可依研究進度動態調整</li>
-                </ul>
+                <div class="slide-number">第 2 頁 / 共 3 頁</div>
+            </div>
+        </div>
 
-                <h2>預期成果效益</h2>
-                <ul class="objectives">
-                    <li><strong>為政府決策提供依據</strong>：全球趨勢研析將作為相關政策規劃的重要參考依據</li>
-                    <li><strong>釐清產業定位</strong>：透過國際評比深入了解我國在全球數位經濟供應鏈中的角色與優勢</li>
-                    <li><strong>擴大合作選擇</strong>：德國荷蘭研究將提供更多雙邊合作選項，豐富國際合作策略</li>
-                    <li><strong>強化研究網絡</strong>：與國際組織及研究機構建立長期聯繫，提升研究量能</li>
-                </ul>
+        <!-- 第三頁 -->
+        <div class="slide" id="slide3" style="display: none;">
+            <div class="slide-header">
+                <div class="slide-title">工項分配管理</div>
+                <div class="slide-subtitle">點擊工項分配負責同仁</div>
+            </div>
+            
+            <div class="slide-content">
+                <h2>分項一：數位經濟國際合作機制及領域探討</h2>
+                
+                <div class="work-item" onclick="assignPerson(this)">
+                    <div class="work-title">1.1 全球數位經濟國際合作重點議題與趨勢研析</div>
+                    <div class="work-details">工作期程：114年8月～115年1月</div>
+                    <div class="work-details">主要查核點：<br>
+                    • 全球數位經濟國際合作重點議題與趨勢研析報告規劃書(114年9月15日)<br>
+                    • 全球數位經濟國際合作重點議題與趨勢研析報告(115年1月31日)<br>
+                    研究結果與進度納入：<br>
+                    • 計畫執行進度報告(114年12月10日)<br>
+                    • 期中執行成果報告(115年1月9日)<br>
+                    • 期末執行成果報告(115年6月30日)</div>
+                    <div class="assigned-person">點擊分配負責人</div>
+                    <div class="assigned-person" style="margin-left: 10px;">點擊分配負責人</div>
+                </div>
 
-                <div class="slide-number">第 2 頁 / 共 2 頁</div>
+                <div class="work-item" onclick="assignPerson(this)">
+                    <div class="work-title">1.2 全球數位經濟產業評比研析與因應</div>
+                    <div class="work-details">工作期程：114年12月～115年5月</div>
+                    <div class="work-details">主要查核點：<br>
+                    • 全球數位經濟產業評比研析與因應報告規劃書(115年1月31日)<br>
+                    • 全球數位經濟產業評比研析與因應報告(115年5月31日)<br>
+                    研究結果與進度納入：<br>
+                    • 計畫執行進度報告(114年12月10日)<br>
+                    • 期中執行成果報告(115年1月9日)<br>
+                    • 計畫執行進度報告(115年4月10日)<br>
+                    • 期末執行成果報告(115年6月30日)</div>
+                    <div class="assigned-person">點擊分配負責人</div>
+                    <div class="assigned-person" style="margin-left: 10px;">點擊分配負責人</div>
+                </div>
+
+                <h2>分項二：重點國家雙邊合作交流</h2>
+                
+                <div class="work-item" onclick="assignPerson(this)">
+                    <div class="work-title">2.1 德國數位產業研析</div>
+                    <div class="work-details">工作期程：114年8月～115年7月</div>
+                    <div class="work-details">主要查核點：<br>
+                    • 重點國家數位經濟議題之交流合作研析報告(115年5月31日)<br>
+                    研究結果與進度納入：<br>
+                    • 計畫執行進度報告(114年12月10日)<br>
+                    • 期中執行成果報告(115年1月9日)<br>
+                    • 計畫執行進度報告(115年4月10日)<br>
+                    • 期末執行成果報告(115年6月30日)</div>
+                    <div class="assigned-person">點擊分配負責人</div>
+                </div>
+
+                <div class="work-item" onclick="assignPerson(this)">
+                    <div class="work-title">2.1 荷蘭數位產業研析</div>
+                    <div class="work-details">工作期程：114年8月～115年7月</div>
+                    <div class="work-details">主要查核點：<br>
+                    • 重點國家數位經濟議題之交流合作研析報告(115年5月31日)<br>
+                    研究結果與進度納入：<br>
+                    • 計畫執行進度報告(114年12月10日)<br>
+                    • 期中執行成果報告(115年1月9日)<br>
+                    • 計畫執行進度報告(115年4月10日)<br>
+                    • 期末執行成果報告(115年6月30日)</div>
+                    <div class="assigned-person">點擊分配負責人</div>
+                </div>
+
+                <div class="slide-number">第 3 頁 / 共 3 頁</div>
+            </div>
+        </div>
+
+        <!-- 人員選擇彈窗 -->
+        <div class="modal" id="personModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>選擇負責同仁</h3>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="person-list">
+                        <div class="person-option" onclick="selectPerson('江守斌')">江守斌</div>
+                        <div class="person-option" onclick="selectPerson('王媛婷')">王媛婷</div>
+                        <div class="person-option" onclick="selectPerson('黃紀為')">黃紀為</div>
+                        <div class="person-option" onclick="selectPerson('林奕良')">林奕良</div>
+                        <div class="person-option" onclick="selectPerson('趙毅')">趙毅</div>
+                        <div class="person-option" onclick="selectPerson('詹于萱')">詹于萱</div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-cancel" onclick="closeModal()">取消</button>
+                        <button class="btn-clear" onclick="clearAssignment()">清除分配</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- 導航控制 -->
         <div class="navigation">
-            <button class="nav-btn" onclick="showSlide(1)" id="btn1">第一頁</button>
+            <button class="nav-btn active" onclick="showSlide(1)" id="btn1">第一頁</button>
             <button class="nav-btn" onclick="showSlide(2)" id="btn2">第二頁</button>
+            <button class="nav-btn" onclick="showSlide(3)" id="btn3">工項分配</button>
         </div>
     </div>
 
     <script>
         let currentSlide = 1;
+        let currentWorkItem = null;
+
+        function toggleExpand(element) {
+            const subItems = element.querySelector('.sub-items');
+            const isExpanded = element.classList.contains('expanded');
+            
+            if (isExpanded) {
+                element.classList.remove('expanded');
+                subItems.classList.remove('show');
+            } else {
+                element.classList.add('expanded');
+                subItems.classList.add('show');
+            }
+        }
+
+        function assignPerson(workItem) {
+            // 檢查點擊的是否為 assigned-person 按鈕
+            if (event.target.classList.contains('assigned-person')) {
+                event.stopPropagation();
+                currentWorkItem = event.target;
+                document.getElementById('personModal').style.display = 'block';
+            }
+        }
+
+        function selectPerson(personName) {
+            if (currentWorkItem) {
+                currentWorkItem.textContent = personName;
+                currentWorkItem.classList.add('assigned');
+                closeModal();
+            }
+        }
+
+        function clearAssignment() {
+            if (currentWorkItem) {
+                currentWorkItem.textContent = '點擊分配負責人';
+                currentWorkItem.classList.remove('assigned');
+                closeModal();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('personModal').style.display = 'none';
+            currentWorkItem = null;
+        }
+
+        // 點擊模態框外部關閉
+        window.onclick = function(event) {
+            const modal = document.getElementById('personModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
 
         function showSlide(n) {
             // 隱藏所有幻燈片
             document.getElementById('slide1').style.display = 'none';
             document.getElementById('slide2').style.display = 'none';
+            document.getElementById('slide3').style.display = 'none';
             
             // 移除所有按鈕的活動狀態
-            document.getElementById('btn1').style.background = 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)';
-            document.getElementById('btn2').style.background = 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)';
+            document.getElementById('btn1').classList.remove('active');
+            document.getElementById('btn2').classList.remove('active');
+            document.getElementById('btn3').classList.remove('active');
             
             // 顯示選中的幻燈片
             document.getElementById('slide' + n).style.display = 'block';
-            document.getElementById('btn' + n).style.background = 'linear-gradient(135deg, #0d47a1 0%, #1565c0 100%)';
+            document.getElementById('btn' + n).classList.add('active');
             
             currentSlide = n;
         }
 
         // 鍵盤導航
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight' && currentSlide < 2) {
+            if (event.key === 'ArrowRight' && currentSlide < 3) {
                 showSlide(currentSlide + 1);
             } else if (event.key === 'ArrowLeft' && currentSlide > 1) {
                 showSlide(currentSlide - 1);
